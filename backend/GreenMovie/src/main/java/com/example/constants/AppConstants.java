@@ -7,4 +7,13 @@ public class AppConstants {
 	public final static String UPDATE_FAIL = "Cập nhật thất bại";
 	public final static String DELETE_SUCCESS = "Xoá thành công";
 	public final static String DELETE_FAIL = "Xoá thất bại";
+	
+	public final static int ROLE_ADMIN = 1;
+	public final static int ROLE_STAFF = 2;
+	public final static int ROLE_USER = 3;
+	
+	public final static String CODE_ADMIN = "ADMIN";
+	public final static String CODE_STAFF = "STAFF";
+	public final static String CODE_USER = "USER";
+	
 }

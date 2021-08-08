@@ -54,5 +54,22 @@ public class AccountEntity extends BaseEntity{
 	public void setRole(RoleEntity role) {
 		this.role = role;
 	}
+
+	public CustomerEntity getCustomer() {
+		return customer;
+	}
+
+	public void setCustomer(CustomerEntity customer) {
+		this.customer = customer;
+	}
+
+	public StaffEntity getStaff() {
+		return staff;
+	}
+
+	public void setStaff(StaffEntity staff) {
+		this.staff = staff;
+	}
+	
 	
 }

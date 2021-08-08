@@ -49,6 +49,30 @@ public class CustomerEntity{
 		return fullName;
 	}
 
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	public List<ReceiptEntity> getReceipts() {
+		return receipts;
+	}
+
+	public void setReceipts(List<ReceiptEntity> receipts) {
+		this.receipts = receipts;
+	}
+
+	public AccountEntity getAccountC() {
+		return accountC;
+	}
+
+	public void setAccountC(AccountEntity accountC) {
+		this.accountC = accountC;
+	}
+
 	public void setFullName(String fullName) {
 		this.fullName = fullName;
 	}
