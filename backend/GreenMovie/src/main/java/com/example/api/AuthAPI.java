@@ -1,5 +1,6 @@
 package com.example.api;
 
+import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -76,42 +77,40 @@ public class AuthAPI {
 
 	@PostMapping("/signup")
 	public ResponseEntity<?> registerUser(@Validated @RequestBody SignupRequest signUpRequest) {
-		if (accountRepository.existsByUsername(signUpRequest.getUsername())) {
-			return ResponseEntity.badRequest().body(new BaseResponse<BlankDTO>(false, "Username đã được sử dụng!") {});
-		}
-		add(signUpRequest, AppConstants.ROLE_USER);
-		return ResponseEntity.ok(new BaseResponse<BlankDTO>(true, "Người dùng đăng kí thành công") {});
+		
+		return add(signUpRequest, AppConstants.ROLE_USER);
+		
 	}
 	
 	@PostMapping("/signup/staff")
 	@PreAuthorize("hasRole('ADMIN')")
 	public ResponseEntity<?> registerStaff(@Validated @RequestBody SignupRequest signUpRequest) {
-		if (accountRepository.existsByUsername(signUpRequest.getUsername())) {
-			return ResponseEntity.badRequest().body(new BaseResponse<BlankDTO>(false, "Username đã được sử dụng!") {
-
-			});
-		}
-		add(signUpRequest, AppConstants.ROLE_STAFF);
-		return ResponseEntity.ok(new BaseResponse<BlankDTO>(true, "Nhân viên được đăng ký thành công") {});
+		
+		return add(signUpRequest, AppConstants.ROLE_STAFF);
+		
 	}
 	
 	@PostMapping("/signup/admin")
 	@PreAuthorize("hasRole('ADMIN')")
 	public ResponseEntity<?> registerAdmin(@Validated @RequestBody SignupRequest signUpRequest) {
-		if (accountRepository.existsByUsername(signUpRequest.getUsername())) {
+		
+		return add(signUpRequest, AppConstants.ROLE_ADMIN);
+	}
+
+	@Transactional
+	public ResponseEntity<?> add(SignupRequest signRequest, int typeRole) {
+		
+		if (accountRepository.existsByUsername(signRequest.getUsername())) {
 			return ResponseEntity.badRequest().body(new BaseResponse<BlankDTO>(false, "Username đã được sử dụng!") {
 
 			});
 		}
-		add(signUpRequest, AppConstants.ROLE_ADMIN);
-		return ResponseEntity.ok(new BaseResponse<BlankDTO>(true, "Quản trị được đăng ký thành công") {});
-	}
-
-	@Transactional
-	public void add(SignupRequest signRequest, int typeRole) {
+		
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		AccountEntity account = new AccountEntity();
 		account.setUsername(signRequest.getUsername());
 		account.setPassword(encoder.encode(signRequest.getPassword()));
+		account.setCreatedDate(new Date());
 		account = accountRepository.save(account);
 		
 		if(typeRole == AppConstants.ROLE_ADMIN) {
@@ -120,20 +119,25 @@ public class AuthAPI {
 			admin.setAccountS(account);
 			account.setRole(role);
 			account.setStaff(admin);
+			account.setCreatedBy(authentication.getName());
 		}else if(typeRole == AppConstants.ROLE_STAFF) {
 			RoleEntity role = roleRepository.findByCode(AppConstants.CODE_STAFF);
 			StaffEntity staff = modelMapper.map(signRequest, StaffEntity.class);
 			staff.setAccountS(account);
 			account.setRole(role);
 			account.setStaff(staff);
+			account.setCreatedBy(authentication.getName());
 		}else if(typeRole == AppConstants.ROLE_USER) {
 			RoleEntity role = roleRepository.findByCode(AppConstants.CODE_USER);
 			CustomerEntity customer = modelMapper.map(signRequest, CustomerEntity.class);
 			customer.setAccountC(account);
 			account.setRole(role);
 			account.setCustomer(customer);
+			account.setCreatedBy(signRequest.getUsername());
 		}
 		accountRepository.save(account);
+		
+		return ResponseEntity.ok(new BaseResponse<BlankDTO>(true, "Đăng ký thành công") {});
 	}
 
 	

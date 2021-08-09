@@ -12,8 +12,8 @@ public class AppConstants {
 	public final static int ROLE_STAFF = 2;
 	public final static int ROLE_USER = 3;
 	
-	public final static String CODE_ADMIN = "ADMIN";
-	public final static String CODE_STAFF = "STAFF";
-	public final static String CODE_USER = "USER";
+	public final static String CODE_ADMIN = "ROLE_ADMIN";
+	public final static String CODE_STAFF = "ROLE_STAFF";
+	public final static String CODE_USER =  "ROLE_USER";
 	
 }
