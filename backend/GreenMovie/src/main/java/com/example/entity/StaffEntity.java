@@ -47,6 +47,22 @@ public class StaffEntity{
 		return sex;
 	}
 
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	public AccountEntity getAccountS() {
+		return accountS;
+	}
+
+	public void setAccountS(AccountEntity accountS) {
+		this.accountS = accountS;
+	}
+
 	public void setSex(Boolean sex) {
 		this.sex = sex;
 	}
