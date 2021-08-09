@@ -1,4 +1,4 @@
-package com.example.services;
+package com.example.config;
 
 import java.util.ArrayList;
 import java.util.Collection;

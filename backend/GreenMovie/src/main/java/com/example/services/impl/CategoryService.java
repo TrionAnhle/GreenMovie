@@ -7,10 +7,11 @@ import java.util.List;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.example.api.common.category.CategoryResponse;
 import com.example.constants.AppConstants;
-import com.example.dtos.CategoryDTO;
+import com.example.dtos.admin.CategoryDTO;
 import com.example.entity.CategoryEntity;
 import com.example.repositories.ICategoryRepository;
 import com.example.services.ICategoryService;
@@ -46,6 +47,7 @@ public class CategoryService implements ICategoryService{
 	}
 
 	@Override
+	@Transactional
 	public CategoryResponse save(CategoryDTO dto) {
 		dto.setCode(StringUtities.toCode(dto.getName()));
 		CategoryEntity entity = categoryRepository.findOneByCode(dto.getCode());
@@ -55,16 +57,10 @@ public class CategoryService implements ICategoryService{
 		entity = modelMapper.map(dto, CategoryEntity.class);
 		categoryRepository.save(entity);
 		return new CategoryResponse(true,AppConstants.SAVE_SUCCESS);
-		
 	}
 
 	@Override
-	public CategoryResponse update(CategoryDTO dto) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
+	@Transactional
 	public CategoryResponse delete(Long[] ids) {
 		// TODO Auto-generated method stub
 		return null;

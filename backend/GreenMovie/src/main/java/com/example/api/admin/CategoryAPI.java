@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.api.common.category.CategoryResponse;
-import com.example.dtos.CategoryDTO;
+import com.example.dtos.admin.CategoryDTO;
 import com.example.services.ICategoryService;
 
 @RestController(value = "CategoryOfAdmin")

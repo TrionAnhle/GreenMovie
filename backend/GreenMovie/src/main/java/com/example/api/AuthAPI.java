@@ -5,10 +5,10 @@ import java.util.stream.Collectors;
 
 import javax.transaction.Transactional;
 
-import org.apache.catalina.User;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.api.common.BaseResponse;
+import com.example.config.UserDetailsImpl;
 import com.example.constants.AppConstants;
 import com.example.dtos.BlankDTO;
 import com.example.dtos.JwtResponse;
@@ -33,7 +34,6 @@ import com.example.entity.RoleEntity;
 import com.example.entity.StaffEntity;
 import com.example.repositories.IAccountRepository;
 import com.example.repositories.IRoleRepository;
-import com.example.services.UserDetailsImpl;
 import com.example.uitities.JwtUtils;
 
 @CrossOrigin(origins = "*", maxAge = 3600)
@@ -77,16 +77,17 @@ public class AuthAPI {
 	@PostMapping("/signup")
 	public ResponseEntity<?> registerUser(@Validated @RequestBody SignupRequest signUpRequest) {
 		if (accountRepository.existsByUsername(signUpRequest.getUsername())) {
-			return ResponseEntity.badRequest().body(new BaseResponse<BlankDTO>(false, "Username is already taken!") {});
+			return ResponseEntity.badRequest().body(new BaseResponse<BlankDTO>(false, "Username đã được sử dụng!") {});
 		}
 		add(signUpRequest, AppConstants.ROLE_USER);
 		return ResponseEntity.ok(new BaseResponse<BlankDTO>(true, "Người dùng đăng kí thành công") {});
 	}
 	
 	@PostMapping("/signup/staff")
+	@PreAuthorize("hasRole('ADMIN')")
 	public ResponseEntity<?> registerStaff(@Validated @RequestBody SignupRequest signUpRequest) {
 		if (accountRepository.existsByUsername(signUpRequest.getUsername())) {
-			return ResponseEntity.badRequest().body(new BaseResponse<BlankDTO>(false, "Username is already taken!") {
+			return ResponseEntity.badRequest().body(new BaseResponse<BlankDTO>(false, "Username đã được sử dụng!") {
 
 			});
 		}
@@ -95,9 +96,10 @@ public class AuthAPI {
 	}
 	
 	@PostMapping("/signup/admin")
+	@PreAuthorize("hasRole('ADMIN')")
 	public ResponseEntity<?> registerAdmin(@Validated @RequestBody SignupRequest signUpRequest) {
 		if (accountRepository.existsByUsername(signUpRequest.getUsername())) {
-			return ResponseEntity.badRequest().body(new BaseResponse<BlankDTO>(false, "Username is already taken!") {
+			return ResponseEntity.badRequest().body(new BaseResponse<BlankDTO>(false, "Username đã được sử dụng!") {
 
 			});
 		}

@@ -50,6 +50,5 @@ public class SignupRequest {
 	public void setAddress(String address) {
 		this.address = address;
 	}
-
 	
 }

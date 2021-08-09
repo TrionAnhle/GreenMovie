@@ -3,7 +3,7 @@ package com.example.api.common.category;
 import java.util.List;
 
 import com.example.api.common.BaseResponse;
-import com.example.dtos.CategoryDTO;
+import com.example.dtos.admin.CategoryDTO;
 
 public class CategoryResponse extends BaseResponse<CategoryDTO>{
 
