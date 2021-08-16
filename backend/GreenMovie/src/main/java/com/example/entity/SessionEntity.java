@@ -16,15 +16,18 @@ import javax.persistence.Table;
 public class SessionEntity extends BaseEntity{
 	
 	@ManyToOne
-	@JoinColumn(name = "movie_id")
+	@JoinColumn(name = "movie_id", nullable = false)
 	private MovieEntity movie;
 	
 	@ManyToOne
-	@JoinColumn(name = "cinema_id")
+	@JoinColumn(name = "cinema_id", nullable = false)
 	private CinemaEntity cinema;
 	
 	@Column(name = "show_time")
 	private Date showTime;
+	
+	@Column(name = "finish_time")
+	private Date finishTime;
 	
 	@OneToMany(mappedBy = "session")
 	List<TicketEntity> tickets = new ArrayList<>();
@@ -60,6 +63,14 @@ public class SessionEntity extends BaseEntity{
 
 	public void setTickets(List<TicketEntity> tickets) {
 		this.tickets = tickets;
+	}
+
+	public Date getFinishTime() {
+		return finishTime;
+	}
+
+	public void setFinishTime(Date finishTime) {
+		this.finishTime = finishTime;
 	}
 	
 	

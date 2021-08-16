@@ -34,13 +34,13 @@ public class CinemaAPI {
 	}
 	
 	@PostMapping
-	public ResponseEntity<CinemaResponse> saveCategory(@RequestBody CinemaDTO dto){
+	public ResponseEntity<CinemaResponse> save(@RequestBody CinemaDTO dto){
 		CinemaResponse resp = cinemaService.save(dto);
 		return new ResponseEntity<CinemaResponse>(resp, HttpStatus.OK);
 	}
 	
 	@DeleteMapping
-	public ResponseEntity<CinemaResponse> deleteCategory(@RequestBody Long[] ids){
+	public ResponseEntity<CinemaResponse> delete(@RequestBody Long[] ids){
 		CinemaResponse resp = cinemaService.delete(ids);
 		return new ResponseEntity<CinemaResponse>(resp, HttpStatus.OK);
 	}

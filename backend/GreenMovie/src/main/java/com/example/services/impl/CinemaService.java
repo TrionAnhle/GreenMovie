@@ -10,7 +10,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.interceptor.TransactionInterceptor;
 
 import com.example.api.response.admin.CinemaResponse;
 import com.example.constants.AppConstants;
@@ -51,9 +50,10 @@ public class CinemaService implements ICinemaService{
 
 	@Override
 	public CinemaResponse save(CinemaDTO dto) {
-		if(dto.getTypeOfCinema()  < 0 || dto.getTypeOfCinema() == null )
+		if(dto.getTypeOfCinema() == null )
 			return new CinemaResponse(false, "Không được thiếu loại rạp phim");
-		
+		if(dto.getTypeOfCinema()  < 0 || dto.getTypeOfCinema() >2)
+			return new CinemaResponse(false, "Loại rạp phim không hợp lệ");
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		dto.setType(ETypeCinema.getTypeOfCinema(dto.getTypeOfCinema()));
 		dto.setPrice(ETypeCinema.getPriceByCinema(dto.getType()));
@@ -83,12 +83,18 @@ public class CinemaService implements ICinemaService{
 	public CinemaResponse delete(Long[] ids) {
 		CinemaEntity entity;
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		boolean isAllExist = true;
+		StringBuilder message = new StringBuilder("Không tìm thấy id : ");
+		for(Long id : ids) {
+			if (!cinemaRepository.existsById(id)) {
+				isAllExist = false;
+				message.append(id.toString()+" ");
+			}
+		}
+		if(!isAllExist)
+			return new CinemaResponse(false,message.toString());
 		for (Long id : ids) {
 			entity = cinemaRepository.findById(id).orElse(null);
-			if (entity == null) {
-				TransactionInterceptor.currentTransactionStatus().setRollbackOnly();
-				return new CinemaResponse(false, "Không tìm thấy id: " + id);
-			}
 			if (entity.getSessions().size() > 0) {
 				entity.setIsDelete(true);
 				entity.setUpdateDate(new Date());

@@ -11,7 +11,6 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.transaction.interceptor.TransactionInterceptor;
 
 import com.example.api.response.admin.CategoryResponse;
 import com.example.constants.AppConstants;
@@ -83,15 +82,23 @@ public class CategoryService implements ICategoryService {
 
 	@Override
 	@Transactional
-	public CategoryResponse delete(Long[] ids) {
+	public CategoryResponse delete(Long[] ids){
 		CategoryEntity entity;
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		
+		boolean isAllExist = true;
+		StringBuilder message = new StringBuilder("Không tìm thấy id : ");
+		for(Long id : ids) {
+			if (!categoryRepository.existsById(id)) {
+				isAllExist = false;
+				message.append(id.toString()+" ");
+			}
+		}
+		if(!isAllExist)
+			return new CategoryResponse(false,message.toString());
+		
 		for (Long id : ids) {
 			entity = categoryRepository.findById(id).orElse(null);
-			if (entity == null) {
-				TransactionInterceptor.currentTransactionStatus().setRollbackOnly();
-				return new CategoryResponse(false, "Không tìm thấy id: " + id);
-			}
 			if (entity.getMovies().size() > 0) {
 				entity.setIsDelete(true);
 				entity.setUpdateDate(new Date());
