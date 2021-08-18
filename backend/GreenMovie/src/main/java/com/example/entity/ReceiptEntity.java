@@ -21,12 +21,16 @@ public class ReceiptEntity extends BaseEntity{
 	@Column(name = "payment_date", nullable = false)
 	private Date paymentDate;
 	
+	@Column(name = "is_get_ticket", nullable = false)
+	private Boolean isGetTicket;
+	
 	@ManyToOne
 	@JoinColumn(name = "customer_id")
 	private CustomerEntity customer;
 
 	@OneToMany(mappedBy = "receipt")
 	List<TicketEntity> tickets = new ArrayList<>();
+	
 	
 	public Integer getPaymentType() {
 		return paymentType;
@@ -58,6 +62,14 @@ public class ReceiptEntity extends BaseEntity{
 
 	public void setTickets(List<TicketEntity> tickets) {
 		this.tickets = tickets;
+	}
+
+	public Boolean getIsGetTicket() {
+		return isGetTicket;
+	}
+
+	public void setIsGetTicket(Boolean isGetTicket) {
+		this.isGetTicket = isGetTicket;
 	}
 
 	

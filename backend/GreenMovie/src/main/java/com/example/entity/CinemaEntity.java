@@ -5,18 +5,20 @@ import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
+import com.example.constants.ETypeCinema;
 
 @Entity
 @Table(name = "cinema")
 public class CinemaEntity extends BaseEntity{
 	
-	@Column(name = "name", nullable = false)
-	private String name;
-	
-	@Column(name = "type")
-	private Integer type;
+	@Enumerated(EnumType.STRING)
+	@Column(name = "type", length = 20, nullable = false)
+	private ETypeCinema type;
 	
 	@Column(name = "number_seats", nullable = false)
 	private Integer numberSeats;
@@ -27,19 +29,13 @@ public class CinemaEntity extends BaseEntity{
 	@OneToMany(mappedBy = "cinema")
 	private List<SessionEntity> sessions = new ArrayList<>();
 
-	public String getName() {
-		return name;
-	}
 
-	public void setName(String name) {
-		this.name = name;
-	}
 
-	public Integer getType() {
+	public ETypeCinema getType() {
 		return type;
 	}
 
-	public void setType(Integer type) {
+	public void setType(ETypeCinema type) {
 		this.type = type;
 	}
 

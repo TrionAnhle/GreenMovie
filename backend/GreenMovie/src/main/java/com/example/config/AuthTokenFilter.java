@@ -37,9 +37,6 @@ public class AuthTokenFilter extends OncePerRequestFilter{
 			
 			
 			String jwt = parseJwt(request);
-			
-			
-			
 			if(jwt != null && jwtUtils.validateJwtToken(jwt)) {
 				String username = jwtUtils.getUsernameFromJwtToken(jwt);
 				
@@ -51,12 +48,18 @@ public class AuthTokenFilter extends OncePerRequestFilter{
 				auth.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
 				
 				SecurityContextHolder.getContext().setAuthentication(auth);
+				
+				filterChain.doFilter(request, response);
+			}else if(jwt !=null && !jwtUtils.validateJwtToken(jwt)) {
+				response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Error: Unauthorized");
+			}else {
+				filterChain.doFilter(request, response);
 			}
 			
 		}catch(Exception e) {
 			logger.error("Cannot set user authentication: {}"+e.getMessage());
 		}
-		filterChain.doFilter(request, response);
+		
 	}
 	
 	private String parseJwt(HttpServletRequest request) {
