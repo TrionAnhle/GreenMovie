@@ -18,7 +18,9 @@ public class UploadFileUtils {
 
 	public String  saveImage(String base64, String imageName) {
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-		byte[] bytes = Base64.getDecoder().decode(base64.getBytes());
+		
+		
+		byte[] bytes = Base64.getDecoder().decode(base64.split(",")[1].getBytes());
 		String newPathImage = (authentication.getName()
 				+ String.valueOf(System.currentTimeMillis() + imageName));
 
@@ -31,7 +33,7 @@ public class UploadFileUtils {
 			output.close();
 			logger.error("Save images success");
 		} catch (Exception e) {
-			logger.error("Save images fail");
+			logger.error("Save images fail e" +e.getMessage());
 		}
 
 		return newPathImage;

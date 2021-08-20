@@ -16,6 +16,7 @@ public class SessionDTO {
 	private String time;
 	private Date showTime;
 	private Date finishTime;
+	private Integer numberBooked;
 	public Long getId() {
 		return id;
 	}
@@ -87,6 +88,12 @@ public class SessionDTO {
 	}
 	public void setTime(String time) {
 		this.time = time;
+	}
+	public Integer getNumberBooked() {
+		return numberBooked;
+	}
+	public void setNumberBooked(Integer numberBooked) {
+		this.numberBooked = numberBooked;
 	}
 	
 	

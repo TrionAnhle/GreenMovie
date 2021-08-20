@@ -19,7 +19,7 @@ public class MovieDTO {
 	private String pathVideo;
 	private Integer screenTime;
 	private Boolean isShowing;
-	private int[] categoryId;
+	private Integer categoryId;
 	private List<CategoryUserDTO> category;
 	private String base64;
 	
@@ -110,18 +110,16 @@ public class MovieDTO {
 	public void setCategory(List<CategoryUserDTO> category) {
 		this.category = category;
 	}
-
-
-
-	public int[] getCategoryId() {
+	public Integer getCategoryId() {
 		return categoryId;
 	}
-
-
-
-	public void setCategoryId(int[] categoryId) {
+	public void setCategoryId(Integer categoryId) {
 		this.categoryId = categoryId;
 	}
+
+
+
+	
 	
 	
 }

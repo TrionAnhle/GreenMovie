@@ -48,7 +48,7 @@ public class SessionService implements ISessionService{
 		List<SessionDTO> dtos = new ArrayList<>();
 		for(SessionEntity e : entities) {
 			SessionDTO dto = toDTO(e);
-			
+			dto.setNumberBooked(e.getTickets().size());
 			dtos.add(dto);
 		}
 		return new SessionResponse(true,"",dtos);
@@ -56,8 +56,14 @@ public class SessionService implements ISessionService{
 
 	@Override
 	public SessionResponse findAllAvailable() {
-		// TODO Auto-generated method stub
-		return null;
+		List<SessionEntity> entities = sessionRepository.findAllSessionByAtTime(new Date());
+		List<SessionDTO> dtos = new ArrayList<>();
+		for(SessionEntity e : entities) {
+			SessionDTO dto = toDTO(e);
+			dto.setNumberBooked(e.getTickets().size());
+			dtos.add(dto);
+		}
+		return new SessionResponse(true,"",dtos);
 	}
 
 

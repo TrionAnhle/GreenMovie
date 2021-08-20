@@ -11,6 +11,7 @@ public class CinemaDTO {
 	private String createdBy;
 	private String updateBy;
 	
+	private Integer name;
 	private Integer typeOfCinema;
 	private ETypeCinema type;
 	private Integer numberSeats;
@@ -68,6 +69,12 @@ public class CinemaDTO {
 	}
 	public void setType(ETypeCinema type) {
 		this.type = type;
+	}
+	public Integer getName() {
+		return name;
+	}
+	public void setName(Integer name) {
+		this.name = name;
 	}
 	
 	

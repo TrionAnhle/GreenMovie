@@ -54,12 +54,15 @@ public class CinemaService implements ICinemaService{
 			return new CinemaResponse(false, "Không được thiếu loại rạp phim");
 		if(dto.getTypeOfCinema()  < 0 || dto.getTypeOfCinema() >2)
 			return new CinemaResponse(false, "Loại rạp phim không hợp lệ");
+		
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		dto.setType(ETypeCinema.getTypeOfCinema(dto.getTypeOfCinema()));
 		dto.setPrice(ETypeCinema.getPriceByCinema(dto.getType()));
 		CinemaEntity entity = new CinemaEntity();
 		
 		if(dto.getId() == null || dto.getId() < 0) {
+			if(cinemaRepository.existByName(dto.getName()) !=null)
+				return new CinemaResponse(false, "Tên rạp đã tồn tại");
 			entity = modelMapper.map(dto, CinemaEntity.class);
 			entity.setCreatedDate(new Date());
 			entity.setCreatedBy(authentication.getName());
@@ -69,6 +72,7 @@ public class CinemaService implements ICinemaService{
 				return new CinemaResponse(false, AppConstants.NOT_FOUND_DATA);
 			dto.setCreatedDate(entity.getCreatedDate());
 			dto.setCreatedBy(entity.getCreatedBy());
+			dto.setName(entity.getName());
 			entity = modelMapper.map(dto, CinemaEntity.class);
 			entity.setUpdateDate(new Date());
 			entity.setUpdateBy(authentication.getName());

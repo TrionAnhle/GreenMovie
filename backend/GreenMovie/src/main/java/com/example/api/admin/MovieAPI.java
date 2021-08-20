@@ -3,7 +3,7 @@ package com.example.api.admin;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -15,6 +15,7 @@ import com.example.api.response.admin.MovieResponse;
 import com.example.dtos.admin.MovieDTO;
 import com.example.services.IMovieService;
 
+@CrossOrigin(origins = "*", maxAge = 3600)
 @RestController(value = "MovieOfAdmin")
 @RequestMapping(value = "/api/admin/movie")
 public class MovieAPI {
@@ -45,7 +46,7 @@ public class MovieAPI {
 		return new ResponseEntity<MovieResponse>(resp, HttpStatus.OK);
 	}
 	
-	@DeleteMapping
+	@PostMapping(value = "/delete")
 	public ResponseEntity<MovieResponse> delete(@RequestBody Long[] ids){
 		MovieResponse resp = movieService.delete(ids);
 		return new ResponseEntity<MovieResponse>(resp, HttpStatus.OK);

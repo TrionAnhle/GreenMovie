@@ -16,6 +16,9 @@ import com.example.constants.ETypeCinema;
 @Table(name = "cinema")
 public class CinemaEntity extends BaseEntity{
 	
+	@Column(name = "name", nullable = false)
+	private Integer name;
+	
 	@Enumerated(EnumType.STRING)
 	@Column(name = "type", length = 20, nullable = false)
 	private ETypeCinema type;
@@ -61,6 +64,14 @@ public class CinemaEntity extends BaseEntity{
 
 	public void setPrice(Long price) {
 		this.price = price;
+	}
+
+	public Integer getName() {
+		return name;
+	}
+
+	public void setName(Integer name) {
+		this.name = name;
 	}
 	
 	

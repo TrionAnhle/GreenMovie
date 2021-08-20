@@ -3,7 +3,7 @@ package com.example.api.admin;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -15,6 +15,7 @@ import com.example.api.response.admin.CategoryResponse;
 import com.example.dtos.admin.CategoryDTO;
 import com.example.services.ICategoryService;
 
+@CrossOrigin(origins = "*", maxAge = 3600)
 @RestController(value = "CategoryOfAdmin")
 @RequestMapping(value = "/api/admin/category")
 public class CategoryAPI {
@@ -39,7 +40,7 @@ public class CategoryAPI {
 		return new ResponseEntity<CategoryResponse>(resp, HttpStatus.OK);
 	}
 	
-	@DeleteMapping
+	@PostMapping(value = "/delete")
 	public ResponseEntity<CategoryResponse> deleteCategory(@RequestBody Long[] ids){
 		CategoryResponse resp = categoryService.delete(ids);
 		return new ResponseEntity<CategoryResponse>(resp, HttpStatus.OK);

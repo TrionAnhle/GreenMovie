@@ -79,6 +79,10 @@ public class MovieService implements IMovieService{
 			dto.setCreatedDate(entity.getCreatedDate());
 			dto.setCreatedBy(entity.getCreatedBy());
 			
+			if(dto.getPathThumbnail().equals("")) {
+				dto.setPathThumbnail(entity.getPathThumbnail());
+			}
+			
 			if(!dto.getBase64().equals("")) {
 				uploadFile.deleteImage(entity.getPathThumbnail());
 				dto.setPathThumbnail(uploadFile.saveImage(dto.getBase64(), dto.getPathThumbnail()));
@@ -86,7 +90,7 @@ public class MovieService implements IMovieService{
 			entity = modelMapper.map(dto, MovieEntity.class);
 			entity.setUpdateDate(new Date());
 			entity.setUpdateBy(authentication.getName());
-			if(dto.getCategoryId().length > 0) {
+			if(dto.getCategoryId() != null) {
 				entity.setCategories(getListCategory(dto.getCategoryId()));
 			}
 		}
@@ -140,14 +144,14 @@ public class MovieService implements IMovieService{
 		return dto;
 	}
 	
-	public List<CategoryEntity> getListCategory(int[] list){
+	public List<CategoryEntity> getListCategory(Integer id){
 		List<CategoryEntity> listCategory = new ArrayList<>();
-		for(int i : list) {
-			CategoryEntity category = categoryRepository.findById((long) i).orElse(null);
-			if(category!=null) {
-				listCategory.add(category);
-			}
+		
+		CategoryEntity category = categoryRepository.findById(Long.valueOf(id)).orElse(null);
+		if(category!=null) {
+			listCategory.add(category);
 		}
+		
 		return listCategory;
 	}
 
@@ -161,7 +165,7 @@ public class MovieService implements IMovieService{
 			dto.setPathThumbnail(uploadFile.saveImage(dto.getBase64(), dto.getPathThumbnail()));
 		}
 		entity = modelMapper.map(dto, MovieEntity.class);
-		if(dto.getCategoryId().length > 0) {
+		if(dto.getCategoryId() !=null) {
 			entity.setCategories(getListCategory(dto.getCategoryId()));
 		}
 		MovieDTO newDto = findOneById(movieRepository.save(entity).getId());
