@@ -8,6 +8,7 @@ public class SignupRequest {
 	private Boolean sex;
 	private String phone;
 	private String address;
+	private Integer id;
 	public String getUsername() {
 		return username;
 	}
@@ -49,6 +50,12 @@ public class SignupRequest {
 	}
 	public void setAddress(String address) {
 		this.address = address;
+	}
+	public Integer getId() {
+		return id;
+	}
+	public void setId(Integer id) {
+		this.id = id;
 	}
 	
 }

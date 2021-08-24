@@ -25,17 +25,20 @@ public class UserDetailsImpl implements UserDetails{
 	
 	@JsonIgnore
 	private String password;
+	
+	private Boolean isDelete;
 
 	private Collection<? extends GrantedAuthority> authorities;
 	
 	public UserDetailsImpl(Long id, String username, String email, String password,
-			Collection<? extends GrantedAuthority> authorities) {
+			Collection<? extends GrantedAuthority> authorities, Boolean isDelete) {
 		super();
 		this.id = id;
 		this.username = username;
 		this.email = email;
 		this.password = password;
 		this.authorities = authorities;
+		this.isDelete = isDelete;
 	}
 	
 	public static UserDetailsImpl build(AccountEntity account) {
@@ -46,7 +49,8 @@ public class UserDetailsImpl implements UserDetails{
 					account.getUsername(),
 					(account.getCustomer() != null ? account.getCustomer().getEmail() : ""),
 					account.getPassword(),
-					authorities
+					authorities,
+					account.getIsDelete()
 				);
 	}
 	
@@ -106,4 +110,14 @@ public class UserDetailsImpl implements UserDetails{
 		return Objects.equals(id, user.id);
 	}
 
+	public Boolean getIsDelete() {
+		return isDelete;
+	}
+
+	public void setIsDelete(Boolean isDelete) {
+		this.isDelete = isDelete;
+	}
+
+	
+	
 }
