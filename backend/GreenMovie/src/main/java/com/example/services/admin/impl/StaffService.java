@@ -1,4 +1,4 @@
-package com.example.services.impl;
+package com.example.services.admin.impl;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -17,7 +17,7 @@ import com.example.entity.AccountEntity;
 import com.example.entity.StaffEntity;
 import com.example.repositories.IAccountRepository;
 import com.example.repositories.IStaffRepository;
-import com.example.services.IStaffService;
+import com.example.services.admin.IStaffService;
 
 @Service
 public class StaffService implements IStaffService{

@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.example.api.response.admin.CategoryResponse;
 import com.example.dtos.admin.CategoryDTO;
-import com.example.services.ICategoryService;
+import com.example.services.admin.ICategoryService;
 
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController(value = "CategoryOfAdmin")

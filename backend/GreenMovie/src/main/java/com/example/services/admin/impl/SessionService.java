@@ -1,4 +1,4 @@
-package com.example.services.impl;
+package com.example.services.admin.impl;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -25,7 +25,7 @@ import com.example.entity.SessionEntity;
 import com.example.repositories.ICinemaRepository;
 import com.example.repositories.IMovieRepository;
 import com.example.repositories.ISessionRepository;
-import com.example.services.ISessionService;
+import com.example.services.admin.ISessionService;
 
 
 @Service

@@ -1,4 +1,4 @@
-package com.example.services.impl;
+package com.example.services.admin.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;

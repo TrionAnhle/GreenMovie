@@ -14,7 +14,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
-import com.example.services.impl.UserDetailsServiceImpl;
+import com.example.services.admin.impl.UserDetailsServiceImpl;
 
 @Configuration
 @EnableWebSecurity
@@ -53,9 +53,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
 		http.cors().and().csrf().disable()
 		.exceptionHandling().authenticationEntryPoint(unauthorizedHandler).and()
 		.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and().authorizeRequests()
-//		.antMatchers("/api/auth/signin","/api/auth/signup","/api/auth/signup/staff", "/api/auth/signup/admin").permitAll()
+		.antMatchers("/api/auth/signin","/api/auth/signup").permitAll()
 		.antMatchers("/api/public/**").permitAll()
-		.antMatchers("/api/**").permitAll()
 		.antMatchers("/images/**").permitAll()
 		.anyRequest().authenticated();
 		http.addFilterBefore(authenticationJwtTokenFilter(), UsernamePasswordAuthenticationFilter.class);

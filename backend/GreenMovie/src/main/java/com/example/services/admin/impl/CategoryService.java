@@ -1,4 +1,4 @@
-package com.example.services.impl;
+package com.example.services.admin.impl;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -17,7 +17,7 @@ import com.example.constants.AppConstants;
 import com.example.dtos.admin.CategoryDTO;
 import com.example.entity.CategoryEntity;
 import com.example.repositories.ICategoryRepository;
-import com.example.services.ICategoryService;
+import com.example.services.admin.ICategoryService;
 import com.example.uitities.StringUtities;
 
 @Service

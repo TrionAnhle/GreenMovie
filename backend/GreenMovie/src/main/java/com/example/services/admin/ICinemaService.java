@@ -1,4 +1,4 @@
-package com.example.services;
+package com.example.services.admin;
 
 import com.example.api.response.admin.CinemaResponse;
 import com.example.dtos.admin.CinemaDTO;

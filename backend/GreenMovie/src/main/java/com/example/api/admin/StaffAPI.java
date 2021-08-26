@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.example.api.response.admin.StaffResponse;
 import com.example.dtos.admin.StaffDTO;
-import com.example.services.IStaffService;
+import com.example.services.admin.IStaffService;
 
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController(value = "StaffOfAdmin")

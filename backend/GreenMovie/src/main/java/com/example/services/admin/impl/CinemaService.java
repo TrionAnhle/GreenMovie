@@ -1,4 +1,4 @@
-package com.example.services.impl;
+package com.example.services.admin.impl;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -17,7 +17,7 @@ import com.example.constants.ETypeCinema;
 import com.example.dtos.admin.CinemaDTO;
 import com.example.entity.CinemaEntity;
 import com.example.repositories.ICinemaRepository;
-import com.example.services.ICinemaService;
+import com.example.services.admin.ICinemaService;
 
 @Service
 public class CinemaService implements ICinemaService{

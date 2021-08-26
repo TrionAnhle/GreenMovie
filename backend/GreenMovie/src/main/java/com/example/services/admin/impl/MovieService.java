@@ -1,4 +1,4 @@
-package com.example.services.impl;
+package com.example.services.admin.impl;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -19,7 +19,7 @@ import com.example.entity.CategoryEntity;
 import com.example.entity.MovieEntity;
 import com.example.repositories.ICategoryRepository;
 import com.example.repositories.IMovieRepository;
-import com.example.services.IMovieService;
+import com.example.services.admin.IMovieService;
 import com.example.uitities.UploadFileUtils;
 
 @Service

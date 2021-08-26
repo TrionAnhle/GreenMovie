@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.example.api.response.admin.ReceiptResponse;
 import com.example.dtos.admin.ReceiptDTO;
-import com.example.services.IReceiptService;
+import com.example.services.admin.IReceiptService;
 
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController(value = "ReceiptOfAdmin")

@@ -1,4 +1,4 @@
-package com.example.services.impl;
+package com.example.services.admin.impl;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -15,7 +15,7 @@ import com.example.dtos.admin.ReceiptDTO;
 import com.example.entity.ReceiptEntity;
 import com.example.entity.TicketEntity;
 import com.example.repositories.IReceiptRepository;
-import com.example.services.IReceiptService;
+import com.example.services.admin.IReceiptService;
 
 @Service
 public class ReceiptService implements IReceiptService{
