@@ -13,4 +13,6 @@ public interface IMovieRepository extends JpaRepository<MovieEntity, Long>{
 	
 	@Query("From MovieEntity m Where m.isShowing = true")
 	List<MovieEntity> findAllIsShowing();
+	
+	
 }

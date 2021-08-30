@@ -96,16 +96,18 @@ public class SessionService implements ISessionService{
 		
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		SessionEntity entity;
-		SessionEntity oldEntity = sessionRepository.findSessionIsShowing(cinemaEntity.getId(), dto.getShowTime());
+		List<SessionEntity> oldEntity = sessionRepository.findSessionIsShowing(cinemaEntity.getId(), 
+				DateUtils.addMinutes(dto.getShowTime(), -1),
+				DateUtils.addMinutes(dto.getShowTime(), movieEntity.getScreenTime()+1));
 		if(dto.getId() == null) {
 			entity = new SessionEntity();
-			if(oldEntity != null)
+			if(oldEntity.size() > 0)
 				return new SessionResponse(false,"Đã có suất chiếu trong thời gian này");
 			entity.setCreatedDate(new Date());
 			entity.setCreatedBy(authentication.getName());
 		}else {
 			entity = sessionRepository.findById(dto.getId()).orElse(null);
-			if(oldEntity != null && oldEntity.getId() != dto.getId())
+			if(oldEntity.size() > 0)
 				return new SessionResponse(false,"Đã có suất chiếu trong thời gian này");
 			entity.setUpdateDate(new Date());
 			entity.setUpdateBy(authentication.getName());
