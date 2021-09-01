@@ -35,9 +35,10 @@ public class ReceiptAPI {
 		return new ResponseEntity<ReceiptResponse>(resp, HttpStatus.OK);
 	}
 
-	@PostMapping
-	public ResponseEntity<ReceiptResponse> saveCategory(@RequestBody ReceiptDTO dto) {
+	@PostMapping(value = "/status")
+	public ResponseEntity<ReceiptResponse> supdateStatus(@RequestBody ReceiptDTO dto) {
 		ReceiptResponse resp = receiptService.updateStatusReceipt(dto);
 		return new ResponseEntity<ReceiptResponse>(resp, HttpStatus.OK);
 	}
+	
 }

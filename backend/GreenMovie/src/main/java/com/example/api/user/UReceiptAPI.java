@@ -4,6 +4,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -20,6 +22,12 @@ public class UReceiptAPI {
 	
 	@Autowired
 	private IUReceiptService receiptService;
+	
+	@GetMapping(value = "/{id}")
+	public ResponseEntity<UReceiptResponse> bookTicket(@PathVariable("id") Long id){
+		UReceiptResponse resp = receiptService.findAllByCustomer(id);
+		return new ResponseEntity<UReceiptResponse>(resp, HttpStatus.OK);
+	}
 	
 	@PostMapping
 	public ResponseEntity<UReceiptResponse> bookTicket(@RequestBody UReceiptDTO dto){

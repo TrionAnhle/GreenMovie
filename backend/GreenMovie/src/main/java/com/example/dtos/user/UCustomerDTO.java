@@ -6,6 +6,7 @@ import java.util.List;
 public class UCustomerDTO {
 	private Long id;
 	private String fullName;
+	private String password;
 	private Boolean sex;
 	private String phone;
 	private String address;
@@ -54,6 +55,10 @@ public class UCustomerDTO {
 	public void setReceipts(List<UReceiptDTO> receipts) {
 		this.receipts = receipts;
 	}
-	
-	
+	public String getPassword() {
+		return password;
+	}
+	public void setPassword(String password) {
+		this.password = password;
+	}
 }

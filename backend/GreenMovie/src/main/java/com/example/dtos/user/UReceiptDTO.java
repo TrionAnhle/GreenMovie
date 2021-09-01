@@ -3,6 +3,8 @@ package com.example.dtos.user;
 import java.util.Date;
 import java.util.List;
 
+import com.example.constants.ETypeCinema;
+
 public class UReceiptDTO {
 	private Long id;
 	private Integer paymentType;
@@ -10,6 +12,14 @@ public class UReceiptDTO {
 	private Boolean isGetTicket;
 	private Long customerId;
 	private Long sessionId;
+	private USessionDTO session;
+	private Date createdDate;
+	
+	private String movieName;
+	private Date showTime;
+	private Integer cinemaName;
+	private ETypeCinema cinemaType;
+	private Long cinemaPrice;
 	private List<Integer> tickets;
 	
 	public Long getId() {
@@ -53,6 +63,49 @@ public class UReceiptDTO {
 	}
 	public void setSessionId(Long sessionId) {
 		this.sessionId = sessionId;
-	}	
+	}
+	public USessionDTO getSession() {
+		return session;
+	}
+	public void setSession(USessionDTO session) {
+		this.session = session;
+	}
+	public Date getCreatedDate() {
+		return createdDate;
+	}
+	public void setCreatedDate(Date createdDate) {
+		this.createdDate = createdDate;
+	}
+	public String getMovieName() {
+		return movieName;
+	}
+	public void setMovieName(String movieName) {
+		this.movieName = movieName;
+	}
+	public Date getShowTime() {
+		return showTime;
+	}
+	public void setShowTime(Date showTime) {
+		this.showTime = showTime;
+	}
+	public Integer getCinemaName() {
+		return cinemaName;
+	}
+	public void setCinemaName(Integer cinemaName) {
+		this.cinemaName = cinemaName;
+	}
+	public ETypeCinema getCinemaType() {
+		return cinemaType;
+	}
+	public void setCinemaType(ETypeCinema cinemaType) {
+		this.cinemaType = cinemaType;
+	}
+	public Long getCinemaPrice() {
+		return cinemaPrice;
+	}
+	public void setCinemaPrice(Long cinemaPrice) {
+		this.cinemaPrice = cinemaPrice;
+	}
+	
 	
 }

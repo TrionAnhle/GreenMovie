@@ -6,6 +6,8 @@ import java.util.List;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -48,6 +50,7 @@ public class UReceiptService implements IUReceiptService{
 		ReceiptEntity entity = modelMapper.map(dto, ReceiptEntity.class);
 		CustomerEntity customerEntity = customerRepository.findById(dto.getCustomerId()).orElse(null);
 		SessionEntity sessionEntity = sessionRepository.findById(dto.getSessionId()).orElse(null);
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		
 		Boolean isBooked = false;
 		StringBuilder message = new StringBuilder("Ghế ");
@@ -66,6 +69,8 @@ public class UReceiptService implements IUReceiptService{
 		if(sessionEntity == null)
 			return new UReceiptResponse(false, "Không có dữ liệu về suất chiếu");
 		entity.setCustomer(customerEntity);		
+		entity.setCreatedDate(new Date());
+		entity.setCreatedBy(authentication.getName());
 		entity = receiptRepository.save(entity);
 		// Save ticket to receipt
 		for(Integer i : dto.getTickets()) {
@@ -78,6 +83,39 @@ public class UReceiptService implements IUReceiptService{
 			
 		}		
 		return new UReceiptResponse(true, "Đặt thành công");
+	}
+
+	@Override
+	public UReceiptResponse findAllByCustomer(Long id) {
+		List<ReceiptEntity> entites = receiptRepository.findAllByCustomerId(id);
+		List<UReceiptDTO> dtos = new ArrayList<>();
+		for(ReceiptEntity e : entites) {
+			UReceiptDTO d = toDTO(e);
+			dtos.add(d);
+		}
+		return new UReceiptResponse(true,"",dtos);
+	}
+	
+	public UReceiptDTO toDTO(ReceiptEntity e) {
+		UReceiptDTO dto = new UReceiptDTO();
+		dto.setId(e.getId());
+		dto.setPaymentType(e.getPaymentType());
+		dto.setPaymentDate(e.getPaymentDate());
+		dto.setIsGetTicket(e.getIsGetTicket());
+		// Convert to ticketDTO
+		List<Integer> tickets = new ArrayList<>();
+		for(TicketEntity tk : e.getTickets()) {
+			tickets.add(tk.getId().getSeatId());
+		}
+		dto.setTickets(tickets);
+		dto.setCreatedDate(e.getCreatedDate());
+		// Convert information of Session
+		dto.setMovieName(e.getTickets().get(0).getSession().getMovie().getName());
+		dto.setShowTime(e.getTickets().get(0).getSession().getShowTime());
+		dto.setCinemaName(e.getTickets().get(0).getSession().getCinema().getName());
+		dto.setCinemaType(e.getTickets().get(0).getSession().getCinema().getType());
+		dto.setCinemaPrice(e.getTickets().get(0).getSession().getCinema().getPrice());
+		return dto;
 	}
 	
 }
