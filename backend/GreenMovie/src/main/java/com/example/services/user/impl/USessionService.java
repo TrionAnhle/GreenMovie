@@ -3,6 +3,7 @@ package com.example.services.user.impl;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
@@ -11,10 +12,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.example.api.response.user.USessionResponse;
+import com.example.constants.AppConstants;
 import com.example.dtos.user.UMovieDTO;
 import com.example.dtos.user.USessionDTO;
 import com.example.dtos.user.USessionTimeDTO;
 import com.example.entity.SessionEntity;
+import com.example.entity.TicketEntity;
 import com.example.repositories.ISessionRepository;
 import com.example.services.user.IUSessionService;
 
@@ -65,5 +68,20 @@ public class USessionService implements IUSessionService{
 		mDto.setPathThumbnail(e.getMovie().getPathThumbnail());
 		d.setMovie(mDto);
 		return d;
+	}
+
+	@Override
+	public USessionResponse findOne(Long id) {
+		SessionEntity entity = sessionRepository.findById(id).orElse(null);
+		if(entity == null) {
+			return new USessionResponse(false,AppConstants.NOT_FOUND_DATA);
+		}
+		USessionDTO dto = modelMapper.map(entity, USessionDTO.class);
+		List<Integer> tickets = new ArrayList<>();
+		for(TicketEntity tk : entity.getTickets()) {
+			tickets.add(tk.getId().getSeatId());
+		}
+		dto.setLstTicket(tickets);
+		return new USessionResponse(true,"",Arrays.asList(dto));
 	}
 }

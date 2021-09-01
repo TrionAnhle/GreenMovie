@@ -1,12 +1,15 @@
 package com.example.dtos.user;
 
 import java.util.Date;
+import java.util.List;
 
 public class USessionDTO {
 	private Long id;
 	private Date showTime;
 	private Date finishTime;
 	private UMovieDTO movie;
+	private UCinemaDTO cinema;
+	private List<Integer> lstTicket;
 	public Long getId() {
 		return id;
 	}
@@ -31,5 +34,18 @@ public class USessionDTO {
 	public void setMovie(UMovieDTO movie) {
 		this.movie = movie;
 	}
+	public UCinemaDTO getCinema() {
+		return cinema;
+	}
+	public void setCinema(UCinemaDTO cinema) {
+		this.cinema = cinema;
+	}
+	public List<Integer> getLstTicket() {
+		return lstTicket;
+	}
+	public void setLstTicket(List<Integer> lstTicket) {
+		this.lstTicket = lstTicket;
+	}
+	
 	
 }

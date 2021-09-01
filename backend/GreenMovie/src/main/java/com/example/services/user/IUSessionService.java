@@ -5,4 +5,5 @@ import com.example.dtos.user.USessionTimeDTO;
 
 public interface IUSessionService {
 	USessionResponse findAllSessionInDay(USessionTimeDTO dto);
+	USessionResponse findOne(Long id);
 }

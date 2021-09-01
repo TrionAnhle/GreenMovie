@@ -9,6 +9,7 @@ import javax.transaction.Transactional;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -87,7 +88,7 @@ public class AuthAPI {
 	}
 	
 	@PostMapping("/signup/staff")
-	//@PreAuthorize("hasRole('ADMIN')")
+	@PreAuthorize("hasRole('ADMIN')")
 	public ResponseEntity<?> registerStaff(@Validated @RequestBody SignupRequest signUpRequest) {
 		
 		return add(signUpRequest, AppConstants.ROLE_STAFF);
@@ -95,7 +96,7 @@ public class AuthAPI {
 	}
 	
 	@PostMapping("/signup/admin")
-	//@PreAuthorize("hasRole('ADMIN')")
+	@PreAuthorize("hasRole('ADMIN')")
 	public ResponseEntity<?> registerAdmin(@Validated @RequestBody SignupRequest signUpRequest) {
 		
 		return add(signUpRequest, AppConstants.ROLE_ADMIN);

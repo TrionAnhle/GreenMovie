@@ -4,6 +4,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -19,6 +21,12 @@ import com.example.services.user.IUSessionService;
 public class USessionAPI {
 	@Autowired
 	private IUSessionService sessionService;
+	
+	@GetMapping(value = "/{id}")
+	public ResponseEntity<USessionResponse> findOne(@PathVariable(name = "id") long id){
+		USessionResponse resp = sessionService.findOne(id);
+		return new ResponseEntity<USessionResponse>(resp, HttpStatus.OK);
+	}
 	
 	@PostMapping(value = "/inday")
 	public ResponseEntity<USessionResponse> findAllIsShowing(@RequestBody USessionTimeDTO dto){
