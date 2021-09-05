@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.example.api.response.admin.CinemaResponse;
 import com.example.dtos.admin.CinemaDTO;
-import com.example.services.admin.ICinemaService;
+import com.example.services.ICinemaService;
 
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController(value = "CinemaOfAdmin")

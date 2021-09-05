@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.example.api.response.admin.ReceiptResponse;
 import com.example.dtos.admin.ReceiptDTO;
-import com.example.services.admin.IReceiptService;
+import com.example.services.IReceiptService;
 
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController(value = "ReceiptOfAdmin")
@@ -35,10 +35,9 @@ public class ReceiptAPI {
 		return new ResponseEntity<ReceiptResponse>(resp, HttpStatus.OK);
 	}
 
-	@PostMapping(value = "/status")
-	public ResponseEntity<ReceiptResponse> supdateStatus(@RequestBody ReceiptDTO dto) {
+	@PostMapping
+	public ResponseEntity<ReceiptResponse> saveCategory(@RequestBody ReceiptDTO dto) {
 		ReceiptResponse resp = receiptService.updateStatusReceipt(dto);
 		return new ResponseEntity<ReceiptResponse>(resp, HttpStatus.OK);
 	}
-	
 }

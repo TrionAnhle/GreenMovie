@@ -16,18 +16,6 @@ public class TicketId implements Serializable{
 	@Column(name = "seat_id")
 	private Integer seatId;
 
-	
-	
-	public TicketId() {
-		super();
-	}
-	
-	public TicketId(Long sessionId, Integer seatId) {
-		super();
-		this.sessionId = sessionId;
-		this.seatId = seatId;
-	}
-
 	public Long getSessionId() {
 		return sessionId;
 	}

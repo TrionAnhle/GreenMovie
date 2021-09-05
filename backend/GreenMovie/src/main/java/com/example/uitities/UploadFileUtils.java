@@ -2,9 +2,7 @@ package com.example.uitities;
 
 import java.io.File;
 import java.io.FileOutputStream;
-import java.util.ArrayList;
 import java.util.Base64;
-import java.util.List;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -48,18 +46,6 @@ public class UploadFileUtils {
 		if(serverFile.delete()) {
 			logger.error("Delete image success");
 		}else logger.error("Delete image fail");
-	}
-	
-	public List<String> getImageSlide(){
-		File folder = new File("src\\main\\resources\\static\\images\\slide");
-        File[] listOfFiles = folder.listFiles();
-        List<String> images = new ArrayList<>();
-        for (File f: listOfFiles) {
-            if (f.isFile()) {
-                images.add(f.getName());
-            } 
-        }
-        return images;
 	}
 
 }

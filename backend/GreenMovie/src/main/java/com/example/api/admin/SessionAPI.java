@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.example.api.response.admin.SessionResponse;
 import com.example.dtos.admin.SessionDTO;
-import com.example.services.admin.ISessionService;
+import com.example.services.ISessionService;
 
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController(value = "SessionOfAdmin")
